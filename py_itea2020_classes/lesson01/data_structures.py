@@ -30,24 +30,32 @@
 # products['tomato'] = 15
 # print(products)
 
-cars = {
-    'mercedes' : {
-        'g63' : 333,
-        'e500': 999
-    }
-}
+# cars = {
+#     'mercedes' : {
+#         'g63' : 333,
+#         'e500': 999
+#     }
+# }
+#
+# my_set = {1,2,3,4,5,1,2,5,6}
+# print(my_set)
+# my_set2 = {'1','2','3','4','5','1','2','5','6'}
+# print(my_set2)
+#
+# products_set_1 = {'fish', 'meat', 'carrot'}
+# products_set_2 = {'chicken', 'fish', 'carrot'}
+# diff = products_set_1 - products_set_2
+# print(diff)
+# intersect = products_set_1 & products_set_2
+# print(intersect)
+# sum_ = products_set_1 | products_set_2
+# print(sum_)
+# print(sum([1,2]))
 
-my_set = {1,2,3,4,5,1,2,5,6}
-print(my_set)
-my_set2 = {'1','2','3','4','5','1','2','5','6'}
-print(my_set2)
-
-products_set_1 = {'fish', 'meat', 'carrot'}
-products_set_2 = {'chicken', 'fish', 'carrot'}
-diff = products_set_1 - products_set_2
-print(diff)
-intersect = products_set_1 & products_set_2
-print(intersect)
-sum_ = products_set_1 | products_set_2
-print(sum_)
-print(sum([1,2]))
+a = [1,2,3]
+b=[1,2,3]
+print(a == b)
+print (a is b)
+b=a
+print(a == b)
+print (a is b)
