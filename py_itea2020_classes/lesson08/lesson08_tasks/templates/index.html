@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products categories</title>
+</head>
+<body>
+    <h1>Categories list:</h1>
+
+    {% for category in categories%}
+    <p><a href="/{{category[0]}}">{{category[1]}}</a></p>
+    {% endfor %}
+</body>
+</html>
