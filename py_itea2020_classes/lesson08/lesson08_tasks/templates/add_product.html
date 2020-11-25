@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Adding new product</title>
+</head>
+<body>
+
+<form action="/{{category_id}}/add_product" method="post">
+    <input type = "text" placeholder = "Please specify product name" name = "product_name">
+    <input type = "number" placeholder = "Amount" name = "amount">
+    <input type = "number" placeholder = "Price" name = "price">
+    <input type = "checkbox" placeholder = "Availability" name = "is_available">
+    <input type = "submit">
+</form>
+
+</body>
+</html>
