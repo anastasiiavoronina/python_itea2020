@@ -2,21 +2,18 @@ from marshmallow import Schema
 from marshmallow import fields
 from marshmallow.validate import Length, Range
 
+
 class AuthorSchema(Schema):
     id = fields.String(dump_only=True)
     first_name = fields.String(validate=Length(min=2, max=128), required=True)
     last_name = fields.String(validate=Length(min=2, max=128), required=True)
     posts_amount = fields.Int(default=0, dump_only=True)
 
-# class AuthorSchemaNested(Schema):
-#     $oid = fields.String()
 
 class TagSchema(Schema):
     id = fields.String(dump_only=True)
     name = fields.String(validate=Length(min=2, max=64), required=True)
 
-# class TagSchemaNested(Schema):
-#     $oid = fields.String()
 
 class PostSchema(Schema):
     id = fields.String(dump_only=True)
@@ -26,6 +23,7 @@ class PostSchema(Schema):
     author = fields.Nested(AuthorSchema)
     tag = fields.Nested(TagSchema)
     views_amount = fields.Int(default=0, dump_only=True)
+
 
 class PostSchemaWrite(Schema):
     id = fields.String(dump_only=True)

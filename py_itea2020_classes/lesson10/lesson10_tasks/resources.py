@@ -5,6 +5,7 @@ import json
 from schemas import TagSchema, AuthorSchema, PostSchema, PostSchemaWrite
 from marshmallow.exceptions import ValidationError
 
+
 class TagResource(Resource):
 
     def get(self, id=None):
@@ -21,7 +22,7 @@ class TagResource(Resource):
             return {'error': str(e)}
         t = Tag(**request.json)
         t.save()
-        return TagSchema().dump(t) #json.loads(u.to_json())
+        return TagSchema().dump(t)
 
     def put(self, id=None):
         if id:
@@ -42,6 +43,7 @@ class TagResource(Resource):
             return {'status': 'deleted'}
         else:
             return {'status': 'id of deleted object is not specified'}
+
 
 class AuthorResource(Resource):
 
@@ -99,7 +101,10 @@ class PostResource(Resource):
             PostSchema().load(request.json)
         except ValidationError as e:
             return {'error': str(e)}
-        p = Post(**request.json)
+        post_params = request.json
+        post_params['author'] = Author.objects().get(id=post_params['author'])
+        post_params['tag'] = Tag.objects().get(id=post_params['tag'])
+        p = Post(**post_params)
         p.save()
         a = p.author
         a.update(posts_amount=a.posts_amount+1)
@@ -113,7 +118,10 @@ class PostResource(Resource):
                 return {'error': str(e)}
             p = Post.objects().get(id=id)
             old_author_id = p.author.id
-            p.update(**request.json)
+            post_params = request.json
+            post_params['author'] = Author.objects().get(id=post_params['author'])
+            post_params['tag'] = Tag.objects().get(id=post_params['tag'])
+            p.update(**post_params)
             p.reload()
             new_author_id = p.author.id
             if old_author_id != new_author_id:
@@ -135,16 +143,17 @@ class PostResource(Resource):
         else:
             return {'status': 'id of deleted object is not specified'}
 
+
 class PostsByTagResource(Resource):
 
     def get(self, tag_id=None):
         tags = Tag.objects(id=tag_id)
         if len(tags) == 1:
             posts = Post.objects(tag=tags[0])
-            #return json.loads(posts.to_json())
             return PostSchema().dump(posts, many=True)
         else:
             return {'status': 'There is no such tag'}
+
 
 class PostsByAuthorResource(Resource):
 
@@ -152,7 +161,6 @@ class PostsByAuthorResource(Resource):
         authors = Author.objects(id=author_id)
         if len(authors) == 1:
             posts = Post.objects(author=authors[0])
-            #return json.loads(posts.to_json())
             return PostSchema().dump(posts, many=True)
         else:
             return {'status': 'There is no such author'}
